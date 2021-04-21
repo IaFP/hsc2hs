@@ -1,4 +1,7 @@
 {-# LANGUAGE CPP #-}
+#if __GLASGOW_HASKELL__ >= 810
+{-# LANGUAGE PartialTypeConstructors, TypeOperators, TypeFamilies #-}
+#endif
 
 ------------------------------------------------------------------------
 -- Program for converting .hsc files to .hs files, by converting the

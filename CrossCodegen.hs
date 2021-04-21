@@ -1,4 +1,7 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
+#if __GLASGOW_HASKELL__ >= 810
+{-# LANGUAGE PartialTypeConstructors, TypeOperators, UndecidableSuperClasses #-}
+#endif
 
 module CrossCodegen where
 
@@ -34,6 +37,9 @@ import qualified Data.Sequence as S
 import Data.Sequence ((|>),ViewL(..))
 import System.Exit ( ExitCode(..) )
 import System.Process
+#if __GLASGOW_HASKELL__ >= 810
+import GHC.Types(Total)
+#endif
 
 import C
 import Common
@@ -46,6 +52,9 @@ import qualified ATTParser as ATT
 -- and a state counter for unique filename generation.
 -- equivalent to ErrorT String (StateT Int (ReaderT TestMonadEnv IO))
 newtype TestMonad a = TestMonad { runTest :: TestMonadEnv -> Int -> IO (Either String a, Int) }
+#if __GLASGOW_HASKELL__ >= 810
+instance Total TestMonad
+#endif
 
 instance Functor TestMonad where
     fmap = liftM

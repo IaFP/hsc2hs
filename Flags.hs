@@ -1,3 +1,6 @@
+#if __GLASGOW_HASKELL__ >= 810
+{-# LANGUAGE PartialTypeConstructors, TypeOperators, UndecidableSuperClasses #-}
+#endif
 
 module Flags where
 

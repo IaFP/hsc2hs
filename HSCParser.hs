@@ -1,3 +1,7 @@
+#if __GLASGOW_HASKELL__ >= 810
+{-# LANGUAGE PartialTypeConstructors, TypeOperators #-}
+#endif
+
 module HSCParser where
 import Control.Applicative      hiding ( many )
 import Control.Monad            ( MonadPlus(..), liftM, liftM2, ap )

@@ -60,7 +60,7 @@ Executable hsc2hs
         cbits/utils.c
 
     Other-Extensions: CPP, NoMonomorphismRestriction
-
+    Default-Extensions: CPP
     Build-Depends: base       >= 4.3.0 && < 4.15,
                    containers >= 0.4.0 && < 0.7,
                    directory  >= 1.1.0 && < 1.4,
@@ -73,7 +73,9 @@ Executable hsc2hs
     ghc-options:   -Wall
     if flag(in-ghc-tree)
        cpp-options: -DIN_GHC_TREE
-
+    if impl(ghc>=8.10)
+       Build-Depends: ghc-prim >= 0.6.1
+       
 test-suite spec
   main-is:           Spec.hs
   hs-source-dirs:    .
