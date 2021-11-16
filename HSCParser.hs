@@ -6,11 +6,17 @@ module HSCParser where
 import Control.Applicative      hiding ( many )
 import Control.Monad            ( MonadPlus(..), liftM, liftM2, ap )
 import Data.Char                ( isAlpha, isAlphaNum, isSpace, isDigit )
+#if MIN_VERSION_base(4,14,0)
+import GHC.Types (Total)
+#endif
 
 ------------------------------------------------------------------------
 -- A deterministic parser which remembers the text which has been parsed.
 
 newtype Parser a = Parser (SourcePos -> String -> ParseResult a)
+#if MIN_VERSION_base(4,14,0)
+instance Total (Parser)
+#endif
 
 runParser :: Parser a -> String -> String -> ParseResult a
 runParser (Parser p) file_name = p (SourcePos file_name 1 1)
